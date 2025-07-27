@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Issued Books</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-image: url('{{ url_for('static', filename='bg/issue.jpg') }}'); background-size: cover; background-position: center;">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('dashboard') }}">Library System</a>
+      <a href="{{ url_for('issue_book') }}" class="btn btn-outline-light"> Issue Book</a>
+    </div>
+  </nav>
+
+  <div class="container py-5 text-white">
+    <div class="bg-dark bg-opacity-75 p-4 rounded shadow">
+        <h3 class="mb-4 text-center"> Currently Issued Books</h3>
+        <form method="GET" action="{{ url_for('issued_books') }}" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search by Member or Book" value="{{ request.args.get('q', '') }}">
+                <button class="btn btn-outline-light" type="submit">🔍 Search</button>
+            </div>
+        </form>
+      <table class="table table-bordered table-striped table-dark table-hover text-center">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Member</th> 
+                <th>Book</th>
+                <th>Author</th>
+                <th>Issue Date</th>
+                <th>Return Date</th>
+                <th>Action</th> <!-- Add this -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in issued %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ book.member_name }}</td>
+                <td>{{ book.book_title }}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.issue_date }}</td>
+                <td>{{ book.return_date }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('return_book', issue_id=book.id) }}">
+                        <button type="submit" class="btn btn-success btn-sm" onclick="return confirm('Confirm return of this book?')">✅ Return</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="7">No books currently issued.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>

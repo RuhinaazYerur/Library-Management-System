@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Book</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-image: url({{ url_for('static', filename='bg/books.jpg') }});
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .form-container {
+      background-color: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      max-width: 600px;
+      margin: 80px auto;
+      animation: slideFade 0.8s ease-in-out;
+    }
+
+    @keyframes slideFade {
+      0% {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    label {
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      background-color: #f8f9fa;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      transition: box-shadow 0.3s;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      box-shadow: 0 0 5px #28a745;
+      outline: none;
+    }
+
+    button[type="submit"] {
+      background-color: #28a745;
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #218838;
+      transform: scale(1.03);
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .btn-outline-light:hover {
+      background-color: #ffffff22;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('dashboard') }}"> Library System</a>
+      <div class="d-flex">
+        <a href="{{ url_for('books') }}" class="btn btn-outline-light">⬅️ Back to Books</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Add Book Form -->
+  <div class="container">
+    <div class="form-container">
+      <h3 class="text-center mb-4">Add New Book</h3>
+      <form method="POST">
+        <div class="mb-3">
+          <label>Title</label>
+          <input type="text" name="title" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Author</label>
+          <input type="text" name="author" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Category</label>
+          <input type="text" name="category" class="form-control" required>
+        </div>
+
+        <div class="mb-3">
+          <label>Total Copies</label>
+          <input type="number" name="total_copies" class="form-control" min="1" required>
+        </div>
+
+        <div class="d-grid">
+          <button type="submit" class="btn btn-success">Save Book</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

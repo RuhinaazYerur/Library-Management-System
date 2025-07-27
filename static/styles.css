@@ -1,0 +1,17 @@
+/* Fullscreen background image for login */
+body.login-bg {
+    background-image: url("{{ url_for('static', filename='bg/dashboard.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    backdrop-filter: blur(2px);
+}
+
+/* Form styling overrides (optional) */
+form {
+    background-color: rgba(184, 178, 178, 0.9);
+}
+/* Common table styles (optional) */
+table th, table td {
+    vertical-align: middle !important;
+}

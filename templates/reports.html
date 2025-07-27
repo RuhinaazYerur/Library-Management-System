@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Library Reports</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: white;
+      min-height: 100vh;
+    }
+
+    .table-responsive {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    h2 {
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    .navbar-brand {
+      font-weight: bold;
+    }
+
+    .card {
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+    }
+
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('dashboard') }}">Library System</a>
+      <a href="{{ url_for('return_book_page') }}" class="btn btn-outline-light"> Return Books</a>
+    </div>
+  </nav>
+
+  <!-- Content -->
+  <div class="container py-5">
+    <h2 class="mb-4 text-center"> Library Reports Summary</h2>
+
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card text-center p-3">
+          <div class="card-body">
+            <h5 class="card-title"> Total Books</h5>
+            <p class="display-6">{{ total_books }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card text-center p-3">
+          <div class="card-body">
+            <h5 class="card-title">👥 Total Members</h5>
+            <p class="display-6">{{ total_members }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card text-center p-3">
+          <div class="card-body">
+            <h5 class="card-title"> Books Issued</h5>
+            <p class="display-6">{{ total_issued }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 table-responsive p-3 rounded">
+      <h4 class="text-light mb-3"> Recently Issued Books</h4>
+      <table class="table table-dark table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Member</th>
+            <th>Book</th>
+            <th>Issue Date</th>
+            <th>Due Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for entry in recent_issues %}
+          <tr>
+            <td>{{ entry.member.name }}</td>
+            <td>{{ entry.book.title }}</td>
+            <td>{{ entry.issue_date.strftime('%Y-%m-%d') }}</td>
+            <td>{{ entry.return_date.strftime('%Y-%m-%d') }}</td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="4" class="text-warning text-center">No recent issues found.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</body>
+</html>
